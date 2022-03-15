@@ -1,0 +1,80 @@
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+button {
+  padding: 0;
+  margin: 0;
+  font-family: "Raleway", -apple-system, BlinkMacSystemFont, Segoe UI, Roboto,
+    Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+}
+
+.container-row {
+  display: flex;
+  flex-direction: row;
+}
+
+.textgame {
+  justify-content: space-between;
+  align-items: center;
+  width: 60%;
+}
+
+/* Fondos */
+body {
+  background-color: #312244;
+  color: white;
+}
+
+/* Pantallas */
+#pantalla-juego {
+  display: none;
+}
+
+/* Letras */
+h1 {
+  padding: 15px;
+  width: 30vw;
+  margin: auto;
+  text-align: center;
+}
+
+.text-input {
+  border-radius: 0.5em;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  display: block;
+  padding: 0.5em;
+  width: 30%;
+  height: 50px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+#form-palabra {
+  display: none;
+}
+
+#palabra-juego {
+  letter-spacing: 0.3em;
+  font-size: 80px;
+  margin: 0 auto;
+}
+
+/* Botones */
+
+.btn {
+  border: 0;
+  color: white;
+  font-weight: bold;
+  background-color: #654c6c;
+  padding: 10px;
+  margin: 10px auto;
+  border-radius: 0.5em;
+}
