@@ -67,6 +67,10 @@ h1 {
   margin: 0 auto;
 }
 
+.letras-tecleadas {
+  font-size: 40px;
+}
+
 /* Botones */
 
 .btn {
