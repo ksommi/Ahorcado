@@ -27,11 +27,10 @@ var wordsSaved = ["tres", "cinco", "cuatro", "y", "se", "ser", "factura"];
 var wordsCount = wordsSaved.length - 1;
 
 /* Declaraciones */
-var wordArray = [];
 var stringWord = "";
-var arrayUnderscore = [];
 var keyPressed = [];
 var tecla = "";
+var wordToPlay = "";
 
 /* Funciones */
 
@@ -41,9 +40,8 @@ function generateRandom() {
 }
 
 function generateWord() {
-  var wordToPlay = wordsSaved[generateRandom()];
-  wordArray = Array.from(wordToPlay);
-  return wordArray;
+  wordToPlay = wordsSaved[generateRandom()];
+  return wordToPlay;
 }
 
 function showWord(word) {
@@ -58,7 +56,7 @@ function goGame() {
   gameScreen.style.display = "block";
   homeScreen.style.display = "none";
   generateWord();
-  hideWord(wordArray);
+  hideWord(wordToPlay);
   showWord(stringWord);
   listenKey();
 }
@@ -75,11 +73,10 @@ function sendWord() {
   wordForm.style.display = "none";
 }
 
-function hideWord(array) {
-  for (var i = 0; i < array.length; i++) {
-    arrayUnderscore.push("_");
+function hideWord(word) {
+  for (var i = 0; i < word.length; i++) {
+    stringWord = stringWord.concat("_");
   }
-  stringWord = arrayUnderscore.join("");
   return stringWord;
 }
 
@@ -92,18 +89,20 @@ function listenKey(e) {
   window.addEventListener("keypress", (e) => {
     tecla = e.key;
     tecla = tecla.toLowerCase();
-    if (wordArray.includes(tecla)) {
-      for (var i = 0; i < wordArray.length; i++) {
-        if (wordArray[i] === tecla) {
-          arrayUnderscore[i] = tecla;
-          var wordInGame = arrayUnderscore.join("");
-          wordInGame = wordInGame.toUpperCase();
-          showWord(wordInGame);
+    if (wordToPlay.indexOf(tecla) >= 0) {
+      for (var i = 0; i < wordToPlay.length; i++) {
+        if (wordToPlay[i] === tecla) {
+          stringWord = stringWord.replace(
+            stringWord.substring(i, i + 1),
+            tecla
+          );
         }
+        stringWord = stringWord.toUpperCase();
+        showWord(stringWord);
       }
     } else {
       if (validateKey() === true) {
-        if (keyPressed.includes(tecla) || arrayUnderscore.includes(tecla)) {
+        if (keyPressed.includes(tecla) || stringWord.indexOf(tecla) >= 0) {
           console.log("Esta tecla ya se apretó");
         } else {
           keyPressed.push(tecla);
@@ -120,7 +119,7 @@ function listenKey(e) {
 }
 
 function gameStatus() {
-  if (arrayUnderscore.includes("_")) {
+  if (stringWord.indexOf("_") >= 0) {
     console.log("sigue el juego");
   } else {
     alert("ganaste");
