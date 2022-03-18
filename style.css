@@ -18,13 +18,13 @@ button {
 
 .container-row {
   display: flex;
-  flex-direction: row;
+  flex-flow: row wrap;
 }
 
 .textgame {
   justify-content: space-between;
   align-items: center;
-  width: 60%;
+  width: 50%;
 }
 
 /* Fondos */
@@ -34,8 +34,13 @@ body {
 }
 
 /* Pantallas */
+
 #pantalla-juego {
   display: none;
+}
+
+canvas {
+  margin: 50px;
 }
 
 /* Letras */
@@ -81,4 +86,23 @@ h1 {
   padding: 10px;
   margin: 10px auto;
   border-radius: 0.5em;
+}
+
+@media (max-width: 800px) {
+  canvas {
+    width: 100%;
+    transform: scale(0.5);
+  }
+  h1 {
+    width: auto;
+  }
+  .textgame {
+    width: 100%;
+  }
+  .letras-tecleadas {
+    font-size: 20px;
+  }
+  #palabra-juego {
+    font-size: 40px;
+  }
 }
