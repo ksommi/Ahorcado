@@ -14,9 +14,11 @@
     />
   </head>
   <body>
+    <header>
+      <h1>Ahorcado</h1>
+    </header>
     <section id="pantalla-principal">
-      <div class="container">
-        <h1>Ahorcado</h1>
+      <div class="container" id="pantalla-inicio">
         <button class="btn" id="iniciar-juego">JUGAR</button>
         <button class="btn" id="agregar-palabra">Agregar Palabra</button>
         <div id="form-palabra" class="container">
@@ -33,20 +35,28 @@
     <section id="pantalla-juego">
       <div class="container">
         <button class="btn" id="volver">Volver</button>
-        <h1>Let's play</h1>
       </div>
       <div class="container-row">
         <canvas id="ahorcado" height="400px" width="500px"></canvas>
         <div class="container textgame">
           <div class="container">
-            <h3>Letras tecleadas</h3>
+            <h3 id="letras-tecleadas">Letras tecleadas</h3>
             <p class="letras-tecleadas"></p>
           </div>
-          <p id="palabra-juego"></p>
         </div>
       </div>
+      <div class="container">
+        <p id="palabra-juego"></p>
+      </div>
     </section>
-    <script type="text/javascript" src="ahorcado.js"></script>
-    <script type="text/javascript" src="canvas.js"></script>
+    <footer>
+      <h4>
+        Desarrollado por
+        <a href="https://ksommi.github.io/Portfolio/">Kevin Sommi</a>
+      </h4>
+      <p>2022</p>
+    </footer>
   </body>
+  <script type="text/javascript" src="ahorcado.js"></script>
+  <script type="text/javascript" src="canvas.js"></script>
 </html>

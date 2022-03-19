@@ -1,5 +1,7 @@
 var canvas = document.querySelector("canvas");
 var draw = canvas.getContext("2d");
+draw.fillStyle = "white";
+draw.strokeStyle = "white";
 
 function draw0() {
   draw.beginPath();

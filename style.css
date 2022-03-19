@@ -19,6 +19,7 @@ button {
 .container-row {
   display: flex;
   flex-flow: row wrap;
+  width: 100%;
 }
 
 .textgame {
@@ -35,20 +36,31 @@ body {
 
 /* Pantallas */
 
+#pantalla-inicio {
+  height: 70vh;
+}
+
 #pantalla-juego {
   display: none;
 }
 
 canvas {
-  margin: 50px;
+  margin-left: 50px;
+  width: 40%;
 }
 
 /* Letras */
+a {
+  color: inherit;
+  text-decoration: none;
+  transition: 2s;
+}
+
 h1 {
   padding: 15px;
-  width: 30vw;
   margin: auto;
   text-align: center;
+  font-size: 50px;
 }
 
 .text-input {
@@ -56,10 +68,11 @@ h1 {
   border: 1px solid rgba(0, 0, 0, 0.2);
   display: block;
   padding: 0.5em;
-  width: 30%;
+  width: 40%;
   height: 50px;
   margin-left: auto;
   margin-right: auto;
+  font-size: 20px;
 }
 
 #form-palabra {
@@ -74,6 +87,7 @@ h1 {
 
 .letras-tecleadas {
   font-size: 40px;
+  font-style: italic;
 }
 
 /* Botones */
@@ -87,14 +101,36 @@ h1 {
   margin: 10px auto;
   border-radius: 0.5em;
 }
+/* secciones */
 
-@media (max-width: 800px) {
+footer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 20px;
+}
+
+footer p {
+  text-align: center;
+  margin: 2px 0 10px 0;
+}
+
+footer h4 {
+  margin: 2px 0;
+}
+@media (max-width: 768px) {
   canvas {
     width: 100%;
-    transform: scale(0.5);
+    max-width: 500px;
+    transform: scale(0.9);
+    margin: 0 auto;
   }
   h1 {
     width: auto;
+  }
+
+  h3 {
+    margin: 0 auto;
   }
   .textgame {
     width: 100%;
@@ -103,6 +139,10 @@ h1 {
     font-size: 20px;
   }
   #palabra-juego {
-    font-size: 40px;
+    font-size: 30px;
+  }
+
+  .text-input {
+    width: 80%;
   }
 }

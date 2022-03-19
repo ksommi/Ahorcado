@@ -15,6 +15,7 @@ var wordForm = document.querySelector("#form-palabra");
 var wordInput = document.querySelector("#input-palabra");
 var wordGame = document.querySelector("#palabra-juego");
 var keyGame = document.querySelector(".letras-tecleadas");
+var keyTitle = document.querySelector("#letras-tecleadas");
 
 /* Eventos */
 showFormBtn.addEventListener("click", showInput);
@@ -23,7 +24,26 @@ backBtn.addEventListener("click", goHome);
 addWordBtn.addEventListener("click", sendWord);
 
 /* Juego */
-var wordsSaved = ["tres", "cinco", "cuatro", "y", "se", "ser", "factura"];
+var wordsSaved = [
+  "psicologia",
+  "testimonio",
+  "diccionario",
+  "exploraciones",
+  "papeles",
+  "tres",
+  "factura",
+  "filosofia",
+  "programacion",
+  "pensamiento",
+  "barriada",
+  "camino",
+  "extraterrestres",
+  "ahorcado",
+  "javascript",
+  "impresionante",
+  "logica",
+  "introduccion",
+];
 var wordsCount = wordsSaved.length - 1;
 
 /* Declaraciones */
@@ -71,8 +91,16 @@ function goHome() {
 
 function sendWord() {
   var palabra = wordInput.value;
-  wordsSaved.push(palabra);
-  wordForm.style.display = "none";
+  if (!validateWord(palabra)) {
+    alert(
+      "Ingrese solo una palabra. Sin tildes, espacios, o caracteres especiales."
+    );
+  } else {
+    palabra = palabra.toLowerCase();
+    wordsSaved.push(palabra);
+    wordForm.style.display = "none";
+    wordInput.value = "";
+  }
 }
 
 function hideWord(word) {
@@ -82,9 +110,16 @@ function hideWord(word) {
   return stringWord;
 }
 
-function validateKey() {
-  var valids = /[a-zA-ZñÑ]/.test(tecla);
+function validateKey(param) {
+  var valids = /[a-zA-ZñÑ]/.test(param);
   return valids;
+}
+
+function validateWord(param) {
+  if (/[^A-Za-zñÑ]/.test(param)) {
+    return false;
+  }
+  return true;
 }
 
 function listenKey(e) {
@@ -107,7 +142,7 @@ function listenKey(e) {
           }
         }
       } else {
-        if (validateKey() === true) {
+        if (validateKey(tecla) === true) {
           if (keyPressed.includes(tecla)) {
             console.log("Esta tecla ya se apretó");
           } else {
@@ -132,11 +167,13 @@ function listenKey(e) {
 function updateGameStatus() {
   if (counter === 9) {
     keyGame.textContent = "Perdiste!";
+    keyTitle.textContent = "";
     window.removeEventListener("keypress", (e) => {
       e.preventDefault();
     });
   }
   if (stringWord.indexOf("_") === -1) {
     keyGame.textContent = "Ganaste!";
+    keyTitle.textContent = "";
   }
 }
