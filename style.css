@@ -118,6 +118,16 @@ footer p {
 footer h4 {
   margin: 2px 0;
 }
+
+/* Mobile */
+
+#dummy {
+  display: block;
+  width: 200px;
+}
+
+/* Responsive */
+
 @media (max-width: 768px) {
   canvas {
     width: 100%;
@@ -144,5 +154,9 @@ footer h4 {
 
   .text-input {
     width: 80%;
+  }
+
+  #dummy {
+    display: block;
   }
 }
