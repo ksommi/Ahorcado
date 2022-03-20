@@ -16,13 +16,19 @@ var wordInput = document.querySelector("#input-palabra");
 var wordGame = document.querySelector("#palabra-juego");
 var keyGame = document.querySelector(".letras-tecleadas");
 var keyTitle = document.querySelector("#letras-tecleadas");
-var mobileInput = document.querySelector("#dummy");
+var mobileKey = document.querySelectorAll(".key");
 
 /* Eventos */
 showFormBtn.addEventListener("click", showInput);
 startGameBtn.addEventListener("click", goGame);
 backBtn.addEventListener("click", goHome);
 addWordBtn.addEventListener("click", sendWord);
+mobileKey.forEach((key) => {
+  key.addEventListener("click", () => {
+    key.classList.add("red");
+    keyPressed.push(key.textContent);
+  });
+});
 
 /* Juego */
 var wordsSaved = [
@@ -123,44 +129,44 @@ function validateWord(param) {
   return true;
 }
 
+function compareKey(keyT) {
+  if (wordToPlay.indexOf(keyT) >= 0) {
+    for (var i = 0; i < wordToPlay.length; i++) {
+      if (wordToPlay[i] === keyT) {
+        if (wordToPlay[i] != stringWord[i]) {
+          stringWord =
+            stringWord.substring(0, i) + keyT + stringWord.substring(i + 1);
+          showWord(stringWord);
+        } else {
+          console.log("Esta tecla ya esta en la palabra");
+        }
+      }
+    }
+  } else {
+    if (validateKey(keyT) === true) {
+      if (keyPressed.includes(keyT)) {
+        console.log("Esta tecla ya se apretó");
+      } else {
+        drawings[counter]();
+        counter = counter + 1;
+        keyPressed.push(keyT);
+        var keyString = keyPressed.join(" ");
+        keyString = keyString.toUpperCase();
+        keyGame.textContent = keyString;
+      }
+    } else {
+      console.log("ingrese un caracter valido");
+    }
+  }
+  updateGameStatus();
+}
+
 function listenKey(e) {
   if (counter <= 8) {
-    var len = mobileInput.value.length - 1;
-    var mobileKey = mobileInput.value[len];
     window.addEventListener("keypress", (e) => {
       tecla = e.key;
       tecla = tecla.toLowerCase();
-      if (wordToPlay.indexOf(tecla || mobileKey) >= 0) {
-        for (var i = 0; i < wordToPlay.length; i++) {
-          if (wordToPlay[i] === tecla) {
-            if (wordToPlay[i] != stringWord[i]) {
-              stringWord =
-                stringWord.substring(0, i) +
-                tecla +
-                stringWord.substring(i + 1);
-              showWord(stringWord);
-            } else {
-              console.log("Esta tecla ya esta en la palabra");
-            }
-          }
-        }
-      } else {
-        if (validateKey(tecla || mobileKey) === true) {
-          if (keyPressed.includes(tecla) || keyPressed.includes(mobileKey)) {
-            console.log("Esta tecla ya se apretó");
-          } else {
-            drawings[counter]();
-            counter = counter + 1;
-            keyPressed.push(tecla) || keyPressed.push(mobileKey);
-            var keyString = keyPressed.join(" ");
-            keyString = keyString.toUpperCase();
-            keyGame.textContent = keyString;
-          }
-        } else {
-          console.log("ingrese un caracter valido");
-        }
-      }
-      updateGameStatus();
+      compareKey(tecla);
     });
   } else {
     e.preventDefault();

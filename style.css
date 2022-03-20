@@ -41,7 +41,7 @@ body {
 }
 
 #pantalla-juego {
-  display: none;
+  display: block;
 }
 
 canvas {
@@ -121,9 +121,32 @@ footer h4 {
 
 /* Mobile */
 
-#dummy {
-  display: block;
-  width: 200px;
+#teclado-virtual {
+  margin: 0 auto;
+}
+
+.fila {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.key {
+  background-color: #221830;
+  height: 50px;
+  width: 50px;
+  margin: 2px;
+  padding: 5px 0 0 7px;
+  font-size: 1.5em;
+  border-radius: 2px;
+}
+
+.key:hover {
+  cursor: pointer;
+}
+
+.key.red {
+  background-color: red;
 }
 
 /* Responsive */
@@ -135,6 +158,11 @@ footer h4 {
     transform: scale(0.9);
     margin: 0 auto;
   }
+
+  #teclado-virtual {
+    width: 100%;
+  }
+
   h1 {
     width: auto;
   }
