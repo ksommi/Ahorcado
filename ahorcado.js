@@ -16,6 +16,7 @@ var wordInput = document.querySelector("#input-palabra");
 var wordGame = document.querySelector("#palabra-juego");
 var keyGame = document.querySelector(".letras-tecleadas");
 var keyTitle = document.querySelector("#letras-tecleadas");
+var mobileInput = document.querySelector("#dummy");
 
 /* Eventos */
 showFormBtn.addEventListener("click", showInput);
@@ -124,10 +125,12 @@ function validateWord(param) {
 
 function listenKey(e) {
   if (counter <= 8) {
+    var len = mobileInput.value.length - 1;
+    var mobileKey = mobileInput.value[len];
     window.addEventListener("keypress", (e) => {
       tecla = e.key;
       tecla = tecla.toLowerCase();
-      if (wordToPlay.indexOf(tecla) >= 0) {
+      if (wordToPlay.indexOf(tecla || mobileKey) >= 0) {
         for (var i = 0; i < wordToPlay.length; i++) {
           if (wordToPlay[i] === tecla) {
             if (wordToPlay[i] != stringWord[i]) {
@@ -142,13 +145,13 @@ function listenKey(e) {
           }
         }
       } else {
-        if (validateKey(tecla) === true) {
-          if (keyPressed.includes(tecla)) {
+        if (validateKey(tecla || mobileKey) === true) {
+          if (keyPressed.includes(tecla) || keyPressed.includes(mobileKey)) {
             console.log("Esta tecla ya se apretó");
           } else {
             drawings[counter]();
             counter = counter + 1;
-            keyPressed.push(tecla);
+            keyPressed.push(tecla) || keyPressed.push(mobileKey);
             var keyString = keyPressed.join(" ");
             keyString = keyString.toUpperCase();
             keyGame.textContent = keyString;
