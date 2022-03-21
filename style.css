@@ -41,7 +41,7 @@ body {
 }
 
 #pantalla-juego {
-  display: block;
+  display: none;
 }
 
 canvas {
@@ -123,6 +123,7 @@ footer h4 {
 
 #teclado-virtual {
   margin: 0 auto;
+  display: none;
 }
 
 .fila {
@@ -132,7 +133,7 @@ footer h4 {
 }
 
 .key {
-  background-color: #221830;
+  background-color: #654c6c;
   height: 50px;
   width: 50px;
   margin: 2px;
@@ -146,7 +147,7 @@ footer h4 {
 }
 
 .key.red {
-  background-color: red;
+  background-color: #221830;
 }
 
 /* Responsive */
@@ -160,6 +161,7 @@ footer h4 {
   }
 
   #teclado-virtual {
+    display: block;
     width: 100%;
   }
 
@@ -182,9 +184,5 @@ footer h4 {
 
   .text-input {
     width: 80%;
-  }
-
-  #dummy {
-    display: block;
   }
 }

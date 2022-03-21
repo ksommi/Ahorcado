@@ -26,7 +26,8 @@ addWordBtn.addEventListener("click", sendWord);
 mobileKey.forEach((key) => {
   key.addEventListener("click", () => {
     key.classList.add("red");
-    keyPressed.push(key.textContent);
+    var keyMobile = key.textContent.toLowerCase();
+    compareKey(keyMobile);
   });
 });
 
@@ -59,6 +60,7 @@ var keyPressed = [];
 var tecla = "";
 var wordToPlay = "";
 var counter = 0;
+var gameStatus = "En curso";
 
 /* Funciones */
 
@@ -130,59 +132,56 @@ function validateWord(param) {
 }
 
 function compareKey(keyT) {
-  if (wordToPlay.indexOf(keyT) >= 0) {
-    for (var i = 0; i < wordToPlay.length; i++) {
-      if (wordToPlay[i] === keyT) {
-        if (wordToPlay[i] != stringWord[i]) {
-          stringWord =
-            stringWord.substring(0, i) + keyT + stringWord.substring(i + 1);
-          showWord(stringWord);
-        } else {
-          console.log("Esta tecla ya esta en la palabra");
+  if (gameStatus === "En curso") {
+    if (wordToPlay.indexOf(keyT) >= 0) {
+      for (var i = 0; i < wordToPlay.length; i++) {
+        if (wordToPlay[i] === keyT) {
+          if (wordToPlay[i] != stringWord[i]) {
+            stringWord =
+              stringWord.substring(0, i) + keyT + stringWord.substring(i + 1);
+            showWord(stringWord);
+          } else {
+            console.log("Esta tecla ya esta en la palabra");
+          }
         }
+      }
+    } else {
+      if (validateKey(keyT) === true) {
+        if (keyPressed.includes(keyT)) {
+          console.log("Esta tecla ya se apretó");
+        } else {
+          drawings[counter]();
+          counter = counter + 1;
+          keyPressed.push(keyT);
+          var keyString = keyPressed.join(" ");
+          keyString = keyString.toUpperCase();
+          keyGame.textContent = keyString;
+        }
+      } else {
+        console.log("ingrese un caracter valido");
       }
     }
   } else {
-    if (validateKey(keyT) === true) {
-      if (keyPressed.includes(keyT)) {
-        console.log("Esta tecla ya se apretó");
-      } else {
-        drawings[counter]();
-        counter = counter + 1;
-        keyPressed.push(keyT);
-        var keyString = keyPressed.join(" ");
-        keyString = keyString.toUpperCase();
-        keyGame.textContent = keyString;
-      }
-    } else {
-      console.log("ingrese un caracter valido");
-    }
+    console.log("juego terminado");
   }
   updateGameStatus();
 }
 
-function listenKey(e) {
-  if (counter <= 8) {
-    window.addEventListener("keypress", (e) => {
-      tecla = e.key;
-      tecla = tecla.toLowerCase();
-      compareKey(tecla);
-    });
-  } else {
-    e.preventDefault();
-  }
+function listenKey() {
+  window.addEventListener("keypress", (e) => {
+    tecla = e.key;
+    tecla = tecla.toLowerCase();
+    compareKey(tecla);
+  });
 }
 
 function updateGameStatus() {
   if (counter === 9) {
-    keyGame.textContent = "Perdiste!";
-    keyTitle.textContent = "";
-    window.removeEventListener("keypress", (e) => {
-      e.preventDefault();
-    });
+    gameStatus = "Perdiste!";
+    keyGame.textContent = gameStatus;
   }
   if (stringWord.indexOf("_") === -1) {
-    keyGame.textContent = "Ganaste!";
-    keyTitle.textContent = "";
+    gameStatus = "Ganaste!";
+    keyGame.textContent = gameStatus;
   }
 }
